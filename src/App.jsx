@@ -4,6 +4,7 @@ import Home from './pages/Home'
 import Navbar from './components/Navbar'
 import LoginPage from './pages/LoginPage'
 import SignUpPage from './pages/SignupPage'
+import Dashboard from './pages/Dashboard'
 
 function App() {
   
@@ -17,7 +18,7 @@ function App() {
           {/* <Route path="/about" element={<About />} /> */}
           <Route path='/login' element={<LoginPage />} />
           <Route path='/signup' element={<SignUpPage />} />
-          <Route path='/dashboard' element={<div className='text-center text-3xl font-bold mt-20'>Welcome to your Dashboard</div>} />
+          <Route path='/dashboard' element={<Dashboard />} />
         </Routes>
       </BrowserRouter>
     </>
