@@ -10,7 +10,7 @@ const DataBNB = [
    {
       id: 2,
       title: 'Chat',
-      link: '/Chat',
+      link: '/chat',
       icon: 'chat-dots',
    },
    {

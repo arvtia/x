@@ -1,23 +1,15 @@
+import ActivityGraph from "../HomePageComponent/Activities";
+import Stats from "../HomePageComponent/Stats";
+
 const BASE_URL = import.meta.env.VITE_BASE_URL || 'http://localhost:5000';
 
-function DashHome(children) {
+function DashHome() {
    return (
-      <div className="max-w-4xl mx-auto p-2.5">
-
+      <div className="max-w-4xl mx-auto p-2.5 space-y-3">
+         <Stats />
+         <ActivityGraph />
       </div>  
    )
 }
 
-function Cards() {
-   return (
-      <>
-         <div className="grid grid-cols-2 gap-2.5">
-            <div className="bg-linear-to-l from-pink-300 border border-pink-400 rounded-lg shadow-md p-4 flex flex-col items-center">
-               {}
-            </div>
-         </div>
-               
-      </>
-   )
-}
-export default {DashHome , Cards}
+export default DashHome
