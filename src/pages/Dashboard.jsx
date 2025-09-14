@@ -1,3 +1,5 @@
+import { Outlet } from "react-router-dom"
+import NavbarDashboard from "../components/NavbarDashboard/NavbarDashboard"
 
 
 const Dashboard = () => {
@@ -6,6 +8,8 @@ const Dashboard = () => {
          <div className="border-b border-neutral-100 py-1.5">
             <p className="text-md font-semibol px-3 font-mono text-shadow-neutral-400 text-shadow-sm">welcome to Dashboard</p>
          </div>
+         <Outlet />
+         <NavbarDashboard />
       </div>
    )
 }
