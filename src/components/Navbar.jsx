@@ -42,7 +42,7 @@ const Navbar = () => {
 
   return (
     <div className="max-w-4xl mx-auto sticky top-0 z-50 bg-white">
-      <div className="flex justify-between items-center py-4 px-6 border-b border-neutral-200">
+      <div className="flex z-50 justify-between items-center py-4 px-6 border-b border-neutral-200">
         {/* Logo + App Name */}
         <div className="flex gap-2 items-center">
           <div className="size-10 backdrop-blur-md bg-indigo-200 rounded-md p-2 cursor-pointer hover:bg-indigo-300 transition shadow-lg shadow-indigo-200/50"></div>

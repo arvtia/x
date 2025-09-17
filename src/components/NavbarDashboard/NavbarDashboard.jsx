@@ -9,15 +9,15 @@ const DataBNB = [
    },
    {
       id: 2,
-      title: 'Chat',
+      title: 'Activities',
       link: '/chat',
-      icon: 'chat-dots',
+      icon: 'heart-pulse',
    },
    {
       id: 3,   
       title: 'Memmories',
       link: '/memmories',
-      icon: 'camera',
+      icon: 'bi bi-calendar2',
    },
    {
       id: 4,
@@ -36,7 +36,7 @@ const DataBNB = [
 
 function NavbarDashboard() {
    return (
-      <div className="max-w-4xl mx-auto flex justify-evenly gap-3  bg-white border-t border-neutral-300 fixed bottom-0 left-0 right-0">
+      <div className="max-w-4xl z-50 mx-auto flex justify-evenly gap-3  bg-white border-t border-neutral-300 fixed bottom-0 left-0 right-0">
          {  
             DataBNB.map((item, idx) => (
                <Link to={item.link} key={idx} className="size-15 px-1 flex flex-col items-center justify-center text-neutral-600 hover:text-neutral-800 my-1.5 ">
