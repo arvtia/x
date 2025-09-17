@@ -207,7 +207,13 @@ const CreatePost = () => {
 const YourPostHeading = () =>{
    return(
       <>
-         <div className="bg-neutral-50 p-2 rounded-md "></div>
+         <div className="relative">
+            <img src="https://i.pinimg.com/736x/09/d5/81/09d5817b624101b15f38792b6d2b773a.jpg" alt="image backround" className="h-40 w-full object-cover rounded-md backdrop-blur-3xl blur-[2px]" />
+            <div className="absolute inset-y-1/3 inset-x-3">
+               <p className="text-white font-bold text-4xl text-shadow-lg text-shadow-neutral-600 ">Post your favorite moment</p>
+               <p className=" text-xl text-neutral-300 font-stretch-95% font-semibold">cherish those moments forever</p>
+            </div>
+         </div>
       </>
    )
 }
@@ -240,7 +246,7 @@ const CreatePostWrapper = () => {
 
             <div
             onClick={() => setShowModal(true)}
-            className=" mt-5 cursor-pointer p-4 rounded-md bg-white shadow hover:shadow-md transition w-fit"
+            className=" mt-5 cursor-pointer p-3 rounded-md bg-white shadow hover:shadow-md transition w-fit"
          >
             <p className="text-neutral-600">Post Something</p>
          </div>

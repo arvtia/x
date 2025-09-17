@@ -1,90 +1,97 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState } from "react";
 
-const BASE_URL = "http://localhost:5000"; // Replace with your actual base URL
+const BASE_URL = "http://localhost:5000";
 
-const ProfileDash = () => {
-   const [profile, setProfile] = useState(null);
-   const [loading, setLoading] = useState(false);
-   const [error, setError] = useState(null);
+export default function ProfileDash() {
+  const [profile, setProfile] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
-   useEffect(() => {
-      const fetchProfile = async () => {
-         setLoading(true);
-         setError(null);
-         const token = localStorage.getItem('token');
-         if (!token) {
-            setError("No token found");
-            setLoading(false);
-            return;
-         }
-         try {
-            const response = await fetch(`${BASE_URL}/api/auth/me`, {
-               method: "GET",
-               headers: {
-                  "Authorization": `Bearer ${token}`,
-                  "Content-Type": "application/json"
-               }
-            });
-            if (!response.ok) {
-               throw new Error("Failed to fetch profile");
-            }
-            const data = await response.json();
-            setProfile(data);
-         } catch (err) {
-            setError(err.message);
-         } finally {
-            setLoading(false);
-         }
-      };
+  useEffect(() => {
+    const fetchProfile = async () => {
+      setLoading(true);
+      setError("");
+      const token = localStorage.getItem("token");
+      if (!token) {
+        setError("Please log in to view your profile.");
+        setLoading(false);
+        return;
+      }
+      try {
+        const res = await fetch(`${BASE_URL}/api/auth/me`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        if (!res.ok) throw new Error("Failed to fetch profile");
+        const data = await res.json();
+        setProfile(data.user);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-      fetchProfile();
-   }, []);
+    fetchProfile();
+  }, []);
 
-   return (
-      <div className="max-w-4xl mx-auto bg-linear-to-r from-neutral-100 to-neutral-50">
-         {loading && <p>Loading...</p>}
-         {error && <p className="text-red-500">{error}</p>}
-         {profile && (
-            <div>
-               <h2>Profile Details</h2>
-               <pre>{JSON.stringify(profile, null, 2)}</pre>
-            </div>
-         )}
-
-         <div className="max-w-md mx-auto flex flex-row gap-3  p-4">
-            <div className="size-20 md:size-32 bg-indigo-300 border-r border-neutral-300 rounded-md">
-
-            </div>
-            <div className=" space-y-1 flex flex-col gap-3">
-               <div className="flex flex-row gap-3 px-2 py-1 rounded-md bg-neutral-200">
-                  <p className="text-md text-emerald-500 text-shadow-sm">
-                     Name :
-                  </p>
-                  <p className="text-md text-neutral-600">
-                     {/* {profile.user.name} */}
-                  </p>
-               </div>
-               <div className="flex flex-row gap-3 px-2 py-1 rounded-md bg-neutral-200">
-                  <p className="text-md text-emerald-500 text-shadow-sm">
-                     Email :
-                  </p>
-                  <p className="text-md text-neutral-600">
-                     {/* {profile.user.email} */}
-                  </p>
-               </div>
-               <div className="flex flex-row gap-3 px-2 py-1 rounded-md bg-neutral-200">
-                  <p className="text-md text-emerald-500 text-shadow-sm">
-                     Partner Code:  
-                  </p>
-                  <p className="text-md text-neutral-600">
-                     {/* {profile.user.partnerCode} */}
-                     
-                  </p>
-               </div>
-            </div>
-         </div>
+  if (loading) {
+    return (
+      <div className="max-w-md mx-auto p-6 animate-pulse">
+        <div className="h-32 bg-gray-200 rounded-lg mb-4" />
+        <div className="h-6 bg-gray-200 rounded mb-2" />
+        <div className="h-6 bg-gray-200 rounded mb-2" />
+        <div className="h-6 bg-gray-200 rounded" />
       </div>
-   )
-}
+    );
+  }
 
-export default ProfileDash
+  if (error) {
+    return (
+      <p className="max-w-md mx-auto mt-6 text-center text-red-500">
+        {error}
+      </p>
+    );
+  }
+
+  if (!profile) return null;
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-indigo-50 to-purple-50 p-6">
+      <div className="max-w-lg mx-auto bg-white rounded-xl shadow-lg overflow-hidden">
+        {/* Header */}
+        <div className="bg-gradient-to-r from-indigo-600 to-purple-600 p-6 flex items-center space-x-4">
+          <div className="h-20 w-20 bg-white rounded-full flex items-center justify-center text-3xl font-bold text-indigo-600">
+            {profile.name.charAt(0).toUpperCase()}
+          </div>
+          <div>
+            <h2 className="text-2xl font-semibold text-white">
+              {profile.name}
+            </h2>
+            <p className="text-indigo-200">{profile.email}</p>
+          </div>
+        </div>
+
+        {/* Body */}
+        <div className="p-6 space-y-4">
+          <div className="grid grid-cols-2 gap-4">
+            <div className="space-y-1">
+              <p className="text-sm text-gray-500">Partner Code</p>
+              <p className="text-lg font-medium text-gray-800">
+                {profile.partnerCode}
+              </p>
+            </div>
+            {/* Add more fields here if needed */}
+          </div>
+
+          {/* Edit Profile Button */}
+          <button
+            className="w-full py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition"
+            onClick={() => console.log("Navigate to edit profile")}
+          >
+            Edit Profile
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
