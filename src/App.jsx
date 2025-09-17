@@ -7,6 +7,8 @@ import SignUpPage from './pages/SignupPage'
 import Dashboard from './pages/Dashboard'
 import DashHome from './components/DashboardPages.jsx/DashHome'
 import Stats from './components/HomePageComponent/Stats'
+import ProfileDash from './components/ProfileDashboardComponenets/ProfileDash'
+import ActivityGraph from './components/HomePageComponent/Activities'
 // import NavbarDashboard from './components/NavbarDashboard/NavbarDashboard'
 
 function App() {
@@ -24,11 +26,11 @@ function App() {
           <Route path='/' element={<Dashboard />}>
               {/* Nested routes can be added here */}
               <Route index element={<Stats />} />
-              <Route path="chat" element={<div className="p-4">This is the Profile Page</div>} />
+              <Route path="chat" element={<ActivityGraph />} />
               <Route path="settings" element={<div className="p-4">This is the Settings Page</div>} />
               <Route path="memmories" element={<div className="p-4">This is the Settings Page</div>} />
               <Route path="Add" element={<div className="p-4">Page Not Found</div>} />
-              <Route path="stats" element={<div className="p-4">This is the Settings Page</div>} />
+              <Route path="stats" element={<ProfileDash/>} />
           </Route>
         </Routes>
       </BrowserRouter>
