@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 // make sure you've loaded Bootstrap Icons CSS globally:
-//   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@X.Y.Z/font/bootstrap-icons.css">
+import CommentThread from "../commentthreads/CommentThread";
 
 const BASE_URL = "http://localhost:5000";
 
@@ -135,6 +135,36 @@ export default function XAllPosts() {
     }
   };
 
+  const handleNewReply = (postId, parentCommentId, reply) => {
+    setPosts((prev) =>
+      prev.map((p) => {
+        if (p._id !== postId) return p;
+
+        // Deep clone and insert reply under correct comment
+        function insertReply(comments) {
+          return comments.map((c) => {
+            if (c._id === parentCommentId) {
+              return { ...c, replies: [...c.replies, reply] };
+            }
+            if (c.replies?.length) {
+              return { ...c, replies: insertReply(c.replies) };
+            }
+            return c;
+          });
+        }
+
+        return {
+          ...p,
+          comments: insertReply(p.comments),
+          commentsCount: p.commentsCount + 1
+        };
+      })
+    );
+  };
+
+
+
+
   // Loading / error / empty
   if (loading)
     return <div className="p-6 text-center text-gray-500">Loading…</div>;
@@ -144,178 +174,141 @@ export default function XAllPosts() {
     return <div className="p-6 text-center text-gray-500">No posts to show.</div>;
 
   return (
-    <div className="max-w-4xl mx-auto mt-6 bg-white rounded-lg shadow">
+    <div className="max-w-4xl mx-auto bg-white rounded-lg shadow">
       <header className="p-4 border-b">
         <h2 className="text-xl font-bold">Your Posts</h2>
       </header>
 
       {posts.map((post) => (
-        <div
-          key={post._id}
-          className="px-4 py-3 hover:bg-gray-50 transition"
-        >
-          {/* Header & Content */}
-          <div className="flex items-start space-x-3">
-            <div className="flex-shrink-0">
-              <div className="h-10 w-10 rounded-full bg-indigo-200 flex items-center justify-center text-indigo-700 font-bold">
-                {post.author.name.charAt(0).toUpperCase()}
-              </div>
-            </div>
-            <div className="flex-1">
-              <div className="flex items-center space-x-2 text-sm">
-                <span className="font-semibold text-gray-900">
-                  {post.author.name}
-                </span>
-                <span className="text-gray-500">
-                  @{post.author.name.toLowerCase().replace(/\s+/g, "")}
-                </span>
-                <span className="text-gray-500">·</span>
-                <span className="text-gray-500">
-                  {formatTime(post.createdAt)}
-                </span>
-              </div>
+         <div
+            key={post._id}
+            className="px-4 py-5 hover:bg-gray-50 transition border-b"
+         >
+            {/* Header & Content */}
+            <div className="flex items-start space-x-3">
+               {/* Avatar */}
+               <div className="flex-shrink-0">
+               <div className="h-10 w-10 rounded-full bg-indigo-200 flex items-center justify-center text-indigo-700 font-bold">
+                  {post.author.name.charAt(0).toUpperCase()}
+               </div>
+               </div>
 
-              <p className="mt-1 text-gray-800">{post.content}</p>
+               {/* Main Content */}
+               <div className="flex-1 min-w-0">
+               {/* Author + Timestamp */}
+               <div className="flex items-center space-x-2 text-sm">
+                  <span className="font-semibold text-gray-900">
+                     {post.author.name}
+                  </span>
+                  <span className="text-gray-500">
+                     @{post.author.name.toLowerCase().replace(/\s+/g, "")}
+                  </span>
+                  <span className="text-gray-500">·</span>
+                  <span className="text-gray-500">{formatTime(post.createdAt)}</span>
+               </div>
 
-              {/* Media */}
-              {post.mediaURL?.length === 1 && (
-                <img
-                  src={post.mediaURL[0]}
-                  alt=""
-                  className="mt-3 w-full h-auto object-cover rounded-lg"
-                />
-              )}
-              {post.mediaURL?.length > 1 && (
-                <div
-                  className="
-                    mt-3 overflow-x-auto snap-x snap-mandatory
-                    flex space-x-2 py-2 scrollbar-thin scrollbar-thumb-gray-300
-                    bg-neutral-100 p-1
-                  "
-                  style={{ WebkitOverflowScrolling: "touch" }}
-                >
-                  {post.mediaURL.map((url, idx) => (
-                    <div
-                      key={idx}
-                      className="
-                        flex-shrink-0 snap-center
-                        w-48 sm:w-56 md:w-64 lg:w-72
-                        aspect-square rounded-lg overflow-hidden
-                      "
-                    >
-                      <img
-                        src={url}
-                        alt=""
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                  ))}
-                </div>
-              )}
+               {/* Text */}
+               <p className="mt-2 text-gray-800 break-words">{post.content}</p>
 
-              {/* Action Bar */}
-              <div className="flex items-center space-x-6 mt-3 text-gray-600 text-lg">
-                {/* Love */}
-                <button
-                  onClick={() => lovePost(post._id)}
-                  className="flex items-center space-x-1 hover:text-red-500"
-                >
-                  <i
-                    className={
-                      post.hasLoved
-                        ? "bi bi-heart-fill text-red-500"
-                        : "bi bi-heart"
-                    }
-                  />
-                  {post.lovesCount > 0 && (
-                    <span className="text-sm">{post.lovesCount}</span>
-                  )}
-                </button>
-
-                {/* Comments */}
-                <button
-                  onClick={() =>
-                    setOpenCommentsFor(
-                      openCommentsFor === post._id ? null : post._id
-                    )
-                  }
-                  className="flex items-center space-x-1 hover:text-blue-500"
-                >
-                  <i className="bi bi-chat-left-text" />
-                  {post.commentsCount > 0 && (
-                    <span className="text-sm">{post.commentsCount}</span>
-                  )}
-                </button>
-
-                {/* Share */}
-                <button
-                  onClick={() => sharePost(post._id)}
-                  className="flex items-center space-x-1 hover:text-green-500"
-                >
-                  <i className="bi bi-share" />
-                  <span className="text-sm">{post.shareCount}</span>
-                </button>
-              </div>
-
-              {/* Nested Comments */}
-              {openCommentsFor === post._id && (
-                <div className="mt-4 space-y-3">
-                  {/* Existing comments */}
-                  <div className="space-y-2 pl-6 border-l-2 border-gray-200">
-                    {post.comments.map((c) => (
-                      <div
-                        key={c._id}
-                        className="flex items-start space-x-2"
-                      >
-                        <div className="flex-shrink-0">
-                          <div className="h-8 w-8 rounded-full bg-gray-200 flex items-center justify-center text-gray-600 font-medium text-sm">
-                            {c.commenter.name
-                              ? c.commenter.name.charAt(0).toUpperCase()
-                              : "?"}
-                          </div>
-                        </div>
-                        <div>
-                          <div className="text-sm">
-                            <span className="font-semibold">
-                              {c.commenter.name || "User"}
-                            </span>{" "}
-                            <span className="text-gray-500 text-xs">
-                              · {formatTime(c.createdAt)}
-                            </span>
-                          </div>
-                          <div className="text-gray-800">{c.content}</div>
-                        </div>
-                      </div>
-                    ))}
+               {/* Media */}
+               {post.mediaURL?.length === 1 && (
+                  <div className="mt-3 rounded-lg overflow-hidden">
+                     <img
+                     src={post.mediaURL[0]}
+                     alt=""
+                     className="w-full h-auto max-h-[500px] object-contain rounded-lg"
+                     />
                   </div>
+               )}
 
-                  {/* New comment input */}
-                  <div className="flex space-x-2">
-                    <input
-                      value={commentInputs[post._id] || ""}
-                      onChange={(e) =>
-                        setCommentInputs((ci) => ({
-                          ...ci,
-                          [post._id]: e.target.value,
-                        }))
-                      }
-                      placeholder="Write a comment…"
-                      className="flex-1 px-3 py-2 border rounded-lg focus:outline-none focus:ring"
-                    />
-                    <button
-                      onClick={() => addComment(post._id)}
-                      disabled={!commentInputs[post._id]?.trim()}
-                      className="px-4 py-2 bg-blue-500 text-white rounded-lg disabled:opacity-50"
-                    >
-                      Post
-                    </button>
+               {post.mediaURL?.length > 1 && (
+                  <div
+                     className="mt-3 w-full max-w-full overflow-x-auto scrollbar-thin scrollbar-thumb-gray-300"
+                     style={{ WebkitOverflowScrolling: "touch" }}
+                  >
+                     <div className="inline-flex space-x-3 snap-x snap-mandatory px-1">
+                     {post.mediaURL.map((url, idx) => (
+                        <div
+                           key={idx}
+                           className="
+                           flex-none snap-center
+                           w-40 sm:w-56 md:w-64 lg:w-72
+                           aspect-square rounded-lg overflow-hidden
+                           bg-gray-100
+                           "
+                        >
+                           <img
+                           src={url}
+                           alt=""
+                           className="w-full h-full object-cover"
+                           />
+                        </div>
+                     ))}
+                     </div>
                   </div>
-                </div>
-              )}
+               )}
+
+               {/* Action Bar */}
+               <div className="flex items-center space-x-6 mt-4 text-gray-600 text-lg">
+                  {/* Love */}
+                  <button
+                     onClick={() => lovePost(post._id)}
+                     className="flex items-center space-x-1 hover:text-red-500"
+                  >
+                     <i
+                     className={
+                        post.hasLoved
+                           ? "bi bi-heart-fill text-red-500"
+                           : "bi bi-heart"
+                     }
+                     />
+                     {post.lovesCount > 0 && (
+                     <span className="text-sm">{post.lovesCount}</span>
+                     )}
+                  </button>
+
+                  {/* Comments */}
+                  <button
+                     onClick={() =>
+                     setOpenCommentsFor(
+                        openCommentsFor === post._id ? null : post._id
+                     )
+                     }
+                     className="flex items-center space-x-1 hover:text-blue-500"
+                  >
+                     <i className="bi bi-chat-left-text" />
+                     {post.commentsCount > 0 && (
+                     <span className="text-sm">{post.commentsCount}</span>
+                     )}
+                  </button>
+
+                  {/* Share */}
+                  <button
+                     onClick={() => sharePost(post._id)}
+                     className="flex items-center space-x-1 hover:text-green-500"
+                  >
+                     <i className="bi bi-share" />
+                     <span className="text-sm">{post.shareCount}</span>
+                  </button>
+               </div>
+
+               {/* Comments Thread */}
+               {openCommentsFor === post._id && (
+                  <div className="mt-4 pl-4 border-l-2 border-gray-200">
+                     <CommentThread
+                     postId={post._id}
+                     comments={post.comments}
+                     userToken={localStorage.getItem("token")}
+                     onNewReply={(commentId, reply) =>
+                        handleNewReply(post._id, commentId, reply)
+                     }
+                     />
+                  </div>
+               )}
+               </div>
             </div>
-          </div>
-        </div>
-      ))}
+         </div>
+         ))}
     </div>
   );
 }
