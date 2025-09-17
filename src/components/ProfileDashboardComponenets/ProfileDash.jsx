@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const BASE_URL = "http://localhost:5000";
+const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 export default function ProfileDash() {
   const [profile, setProfile] = useState(null);

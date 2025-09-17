@@ -3,7 +3,7 @@ import axios from 'axios';
 import dayjs from 'dayjs';
 import SkeletonActivityGraph from './skeletionActivitiyGraph';
 
-const BASE_URL = "http://localhost:5000";
+const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 // Map a count to a Tailwind color class (GitHub-like)
 function getLevelClass(count) {

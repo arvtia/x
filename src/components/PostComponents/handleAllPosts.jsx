@@ -4,7 +4,7 @@ import axios from "axios";
 // make sure you've loaded Bootstrap Icons CSS globally:
 import CommentThread from "../commentthreads/CommentThread";
 
-const BASE_URL = "http://localhost:5000";
+const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 // “2h” / “3d” / “Sep 17”
 function formatTime(iso) {
