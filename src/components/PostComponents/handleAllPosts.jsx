@@ -107,33 +107,42 @@ export default function XAllPosts() {
     }
   };
 
-  const addComment = async (postId) => {
-    const content = commentInputs[postId]?.trim();
-    if (!content) return;
+   const addComment = async (postId) => {
+  const content = commentInputs[postId]?.trim();
+  if (!content) return;
 
-    try {
-      const token = localStorage.getItem("token");
-      const { data } = await axios.post(
-        `${BASE_URL}/api/posts/${postId}/comment`,
-        { content },
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
-      setPosts((prev) =>
-        prev.map((p) =>
-          p._id === postId
-            ? {
-                ...p,
-                commentsCount: p.commentsCount + 1,
-                comments: [...p.comments, data.comment]
-              }
-            : p
-        )
-      );
-      setCommentInputs((ci) => ({ ...ci, [postId]: "" }));
-    } catch (err) {
-      console.error("comment API error:", err);
-    }
-  };
+  try {
+    const token = localStorage.getItem("token");
+    // Post the comment
+    await axios.post(
+      `${BASE_URL}/api/posts/${postId}/comment`,
+      { content },
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
+
+    // Fetch updated comments for this post
+    const { data: updatedPost } = await axios.get(
+      `${BASE_URL}/api/posts/${postId}`
+    );
+
+    setPosts((prev) =>
+      prev.map((p) =>
+        p._id === postId
+          ? {
+             ...p,
+             comments: updatedPost.comments || [],
+             commentsCount: updatedPost.comments?.length || 0,
+            }
+          : p
+      )
+    );
+
+    // clear the textarea
+    setCommentInputs((ci) => ({ ...ci, [postId]: "" }));
+  } catch (err) {
+    console.error("[addComment] failed:", err.response?.data || err.message);
+  }
+ };
 
   const handleNewReply = (postId, parentCommentId, reply) => {
     setPosts((prev) =>
@@ -295,13 +304,36 @@ export default function XAllPosts() {
                {/* Comments Thread */}
                {openCommentsFor === post._id && (
                   <div className="mt-4 pl-4 border-l-2 border-gray-200">
+                     {/* --- Added: UI for posting a new comment --- */}
+                     <div className="mb-2">
+                       {/* Textarea for comment input, bound to commentInputs state */}
+                       <textarea
+                         className="w-full border rounded p-2 resize-none"
+                         rows={2}
+                         placeholder="Write a comment..."
+                         value={commentInputs[post._id] || ""}
+                         onChange={e =>
+                           setCommentInputs(ci => ({ ...ci, [post._id]: e.target.value }))
+                         }
+                       />
+                       {/* Button to post comment, calls addComment handler */}
+                       <button
+                         className="mt-1 px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600"
+                         onClick={() => addComment(post._id)}
+                         disabled={!(commentInputs[post._id] && commentInputs[post._id].trim())}
+                       >
+                         Post Comment
+                       </button>
+                     </div>
+                     {/* --- End of added comment input UI --- */}
+                     {/* Existing comment thread component for replies and display */}
                      <CommentThread
-                     postId={post._id}
-                     comments={post.comments}
-                     userToken={localStorage.getItem("token")}
-                     onNewReply={(commentId, reply) =>
-                        handleNewReply(post._id, commentId, reply)
-                     }
+                       postId={post._id}
+                       comments={post.comments}
+                       userToken={localStorage.getItem("token")}
+                       onNewReply={(commentId, reply) =>
+                         handleNewReply(post._id, commentId, reply)
+                       }
                      />
                   </div>
                )}
