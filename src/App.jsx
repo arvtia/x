@@ -9,6 +9,7 @@ import DashHome from './components/DashboardPages.jsx/DashHome'
 import Stats from './components/HomePageComponent/Stats'
 import ProfileDash from './components/ProfileDashboardComponenets/ProfileDash'
 import ActivityGraph from './components/HomePageComponent/Activities'
+import DhomeAll from './components/HomePageComponent/DhomeAll'
 // import NavbarDashboard from './components/NavbarDashboard/NavbarDashboard'
 
 function App() {
@@ -25,7 +26,7 @@ function App() {
           <Route path='/signup' element={<SignUpPage />} />
           <Route path='/' element={<Dashboard />}>
               {/* Nested routes can be added here */}
-              <Route index element={<Stats />} />
+              <Route index element={<DhomeAll />} />
               <Route path="chat" element={<ActivityGraph />} />
               <Route path="settings" element={<div className="p-4">This is the Settings Page</div>} />
               <Route path="memmories" element={<div className="p-4">This is the Settings Page</div>} />

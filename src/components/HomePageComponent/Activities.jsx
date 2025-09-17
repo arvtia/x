@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import axios from 'axios';
 import dayjs from 'dayjs';
+import SkeletonActivityGraph from './skeletionActivitiyGraph';
 
 const BASE_URL = "http://localhost:5000";
 
@@ -75,7 +76,7 @@ export default function ActivityGraph() {
         return;
       }
       try {
-        const { data } = await axios.get(`${BASE_URL}/api/activity/getgraph`, {
+        const { data } = await axios.get(`${BASE_URL}/api/streak/getgraph`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         // Supports both combined and raw arrays
@@ -92,24 +93,20 @@ export default function ActivityGraph() {
 
   const { weeks, monthTicks } = useMemo(() => toWeeks(graph), [graph]);
 
+  
   if (loading)
-    return (
-      <div className="flex items-center gap-2 text-neutral-500">
-        <i className="bi bi-arrow-clockwise animate-spin" />
-        <span>Loading activity…</span>
-      </div>
-    );
+    return ( <SkeletonActivityGraph />);
 
   if (error) return <p className="text-sm text-indigo-500">{error}</p>;
 
   return (
-    <div className="space-y-2 bg-white p-3">
+    <div className="space-y-3 bg-white p-4">
       {/* Month labels */}
       <div className="ml-8 flex gap-1 text-xs text-neutral-500">
         {/* Left gutter for weekday labels */}
         <div className="w-6 shrink-0" />
         {monthTicks.map((label, i) => (
-          <div key={i} className="w-3 text-center">
+          <div key={i} className="w-3 text-center ">
             {label}
           </div>
         ))}
@@ -126,11 +123,11 @@ export default function ActivityGraph() {
         {/* Grid: weeks as columns, days as rows */}
         <div className="flex gap-1">
           {weeks.map((week, wi) => (
-            <div key={wi} className="flex flex-col gap-1">
+            <div key={wi} className="flex flex-col gap-2">
               {week.map((day, di) => (
                 <div
                   key={`${wi}-${di}`}
-                  className={`h-3 w-3 rounded-sm ${getLevelClass(day.count)} transition-colors`}
+                  className={`h-3 w-3 rounded-sm cursor-pointer focus:outline-1 focus:outline-indigo-300 ${getLevelClass(day.count)} transition-colors`}
                   title={`${day.date}: ${day.count} activit${day.count === 1 ? 'y' : 'ies'}`}
                   aria-label={`${day.date}: ${day.count} activities`}
                 />

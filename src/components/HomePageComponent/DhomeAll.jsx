@@ -8,7 +8,7 @@ export default function DhomeAll() {
    return (
       <>
          <ActivityGraph />
-         {/* <Stats/> */}
+         <Stats/>
       </>
    )
 }

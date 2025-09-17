@@ -46,9 +46,11 @@ const Stats = () => {
 
   if (loading) {
     return (
-      <div className="flex gap-3 p-2">
-        <i className="bi bi-arrow-clockwise animate-spin text-md text-neutral-400"></i>
-        <p className="animate-pulse">Loading...</p>
+      <div className="flex gap-3 p-2 h-screen flex-col justify-center place-content-center">
+        <div className='p-5'>
+          <i className="bi bi-arrow-clockwise animate-spin text-md text-neutral-400"></i>
+          <p className="animate-pulse">Loading...</p>
+        </div>
       </div>
     );
   }
