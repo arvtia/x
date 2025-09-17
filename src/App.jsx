@@ -10,6 +10,7 @@ import Stats from './components/HomePageComponent/Stats'
 import ProfileDash from './components/ProfileDashboardComponenets/ProfileDash'
 import ActivityGraph from './components/HomePageComponent/Activities'
 import DhomeAll from './components/HomePageComponent/DhomeAll'
+import MainCreatePost from './components/PostComponents/MainCreatePost'
 // import NavbarDashboard from './components/NavbarDashboard/NavbarDashboard'
 
 function App() {
@@ -30,7 +31,7 @@ function App() {
               <Route path="chat" element={<ActivityGraph />} />
               <Route path="settings" element={<div className="p-4">This is the Settings Page</div>} />
               <Route path="memmories" element={<div className="p-4">This is the Settings Page</div>} />
-              <Route path="Add" element={<div className="p-4">Page Not Found</div>} />
+              <Route path="Add" element={<MainCreatePost />} />
               <Route path="stats" element={<ProfileDash/>} />
           </Route>
         </Routes>
