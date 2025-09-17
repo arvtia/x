@@ -2,11 +2,13 @@ import XAllPosts from "../PostComponents/handleAllPosts"
 
 
 
-export const MainMemmories = () => {
+ const MainMemmories = () => {
   return (
     <>
       <XAllPosts />
-      
+
     </>
   )
 }
+
+export default MainMemmories;
