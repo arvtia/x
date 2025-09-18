@@ -184,36 +184,51 @@ export default function XAllPosts() {
 
   return (
     <div className="max-w-4xl mx-auto bg-white rounded-lg shadow">
-      <header className="p-4 border-b">
-        <h2 className="text-xl font-bold">Your Posts</h2>
+      <header className="p-4 ">
+        <h2 className="text-xl font-bold border-b border-neutral-400">Your Posts</h2>
       </header>
 
       {posts.map((post) => (
          <div
             key={post._id}
-            className="px-4 py-5 hover:bg-gray-50 transition border-b"
+            className="px-4 py-5 hover:bg-gray-50 transition "
          >
             {/* Header & Content */}
-            <div className="flex items-start space-x-3">
+            <div className="w-full rounded-2xl md:rounded-lg shadow-md bg-amber-300 items-start space-x-3">
                {/* Avatar */}
-               <div className="flex-shrink-0">
-               <div className="h-10 w-10 rounded-full bg-indigo-200 flex items-center justify-center text-indigo-700 font-bold">
-                  {post.author.name.charAt(0).toUpperCase()}
-               </div>
-               </div>
 
                {/* Main Content */}
-               <div className="flex-1 min-w-0">
+               <div className="p-3">
                {/* Author + Timestamp */}
-               <div className="flex items-center space-x-2 text-sm">
-                  <span className="font-semibold text-gray-900">
-                     {post.author.name}
-                  </span>
-                  <span className="text-gray-500">
-                     @{post.author.name.toLowerCase().replace(/\s+/g, "")}
-                  </span>
-                  <span className="text-gray-500">·</span>
-                  <span className="text-gray-500">{formatTime(post.createdAt)}</span>
+               <div className="flex items-center space-x-2 text-sm relative">
+                  <div className="absolute  right-0">
+                    
+                    <span className="text-gray-500">{formatTime(post.createdAt)}</span>
+                  </div>
+
+                  <div className="flex flex-row gap-2 ">
+
+                      <div className="flex flex-row justify-between pr-3 relative">
+                        <div className="h-10 w-10 rounded-md shadow-md bg-indigo-200 flex items-center justify-center text-indigo-700 font-bold">
+                            {post.author.name.charAt(0).toUpperCase()}
+                        </div>
+
+                      </div>
+
+                      <div className="flex flex-col space-y-0.5 relative w-full">
+                        <span className="font-semibold text-gray-900">
+                        {post.author.name}
+                        </span>
+                        <span className="text-gray-500">
+                          @{post.author.name.toLowerCase().replace(/\s+/g, "")}
+                        </span>
+
+                        {/* time in hrours */}
+                        
+                      </div>
+                      
+                  </div>
+                  
                </div>
 
                {/* Text */}
@@ -221,11 +236,11 @@ export default function XAllPosts() {
 
                {/* Media */}
                {post.mediaURL?.length === 1 && (
-                  <div className="mt-3 rounded-lg overflow-hidden">
+                  <div className="mt-3 overflow-hidden">
                      <img
                      src={post.mediaURL[0]}
                      alt=""
-                     className="w-full h-auto max-h-[500px] object-contain rounded-lg"
+                     className="w-full h-auto max-h-[500px] object-contain rounded-xl"
                      />
                   </div>
                )}
