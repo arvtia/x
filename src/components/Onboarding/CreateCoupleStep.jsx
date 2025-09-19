@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL; // e.g. "http://localhost:5000"
 
@@ -7,6 +8,7 @@ const CreateCoupleConnection = () => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [user, setUser] = useState("");
+  const navigate = useNavigate();
 
   // ✅ Load user once on mount
   useEffect(() => {
@@ -63,6 +65,8 @@ const CreateCoupleConnection = () => {
       const data = await response.json();
       // console.log("Linked couple:", data.couple);
       setSuccess("Connection created successfully!");
+      navigate('/');
+
     } catch (err) {
       // console.error("Error creating couple:", err);
       setError(err.message);
