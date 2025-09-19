@@ -24,7 +24,7 @@ import WelcomPage from "./components/Onboarding/WelcomPage";
 import ChooseConnection from "./components/Onboarding/ChooseConnection";
 import CreateCoupleConnection from "./components/Onboarding/CreateCoupleStep";
 import WaitForPartner from "./components/Onboarding/WaitforPartner";
-import BackButton from "./components/Onboarding/BackButton";
+// import BackButton from "./components/Onboarding/BackButton";
 import NoPagefound from "./components/NoPagefound";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;

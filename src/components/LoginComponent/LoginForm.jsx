@@ -22,9 +22,9 @@ const LoginForm = () => {
 
          const data = await res.json();
          if (res.ok) {
-            console.log('Login successful:', data);
+            // console.log('Login successful:', data);
             localStorage.setItem('token', data.token);
-            navigate('/dashboard');   
+            navigate('/');   
             // store token, redirect, etc.
          } else {
             console.error('Login failed:', data.message);
