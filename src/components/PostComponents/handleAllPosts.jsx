@@ -183,18 +183,16 @@ export default function XAllPosts() {
     return <div className="p-6 text-center text-gray-500">No posts to show.</div>;
 
   return (
-    <div className="max-w-4xl mx-auto bg-white rounded-lg shadow">
-      <header className="p-4 ">
-        <h2 className="text-xl font-bold border-b border-neutral-400">Your Posts</h2>
-      </header>
+    <div className="max-w-md mx-auto bg-white rounded-lg ">
+      
 
       {posts.map((post) => (
          <div
             key={post._id}
-            className="px-4 py-5 hover:bg-gray-50 transition "
+            className="px-4 py-3 hover:bg-gray-50 transition "
          >
             {/* Header & Content */}
-            <div className="w-full rounded-2xl md:rounded-lg shadow-md bg-amber-300 items-start space-x-3">
+            <div className="w-full rounded-2xl md:rounded-lg shadow-md bg-neutral-100 items-start space-x-3">
                {/* Avatar */}
 
                {/* Main Content */}
