@@ -25,6 +25,7 @@ import ChooseConnection from "./components/Onboarding/ChooseConnection";
 import CreateCoupleConnection from "./components/Onboarding/CreateCoupleStep";
 import WaitForPartner from "./components/Onboarding/WaitforPartner";
 import BackButton from "./components/Onboarding/BackButton";
+import NoPagefound from "./components/NoPagefound";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
@@ -135,7 +136,7 @@ function App() {
         <Route path="/reset-password" element={<ResetPassword />} />
 
         {/* Catch-all: redirect unknown routes to root */}
-        <Route path="*" element={<Navigate to="/" replace />} />
+        <Route path="*" element={<NoPagefound />} />
       </Routes>
     </BrowserRouter>
   );
