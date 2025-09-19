@@ -240,7 +240,7 @@ export default function XAllPosts() {
                      <img
                      src={post.mediaURL[0]}
                      alt=""
-                     className="w-full h-auto max-h-[500px] object-contain rounded-xl"
+                     className="w-full h-auto max-h-[400px] object-cover rounded-xl"
                      />
                   </div>
                )}
