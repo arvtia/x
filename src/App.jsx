@@ -21,6 +21,8 @@ import ProfileDash from "./components/ProfileDashboardComponenets/ProfileDash";
 import ResetPassword from "./components/ResetForgetPassword/ResetPassword";
 import CreateCouple from "./components/Slider/CreateCouple";
 import WelcomPage from "./components/Onboarding/WelcomPage";
+import ChooseConnection from "./components/Onboarding/ChooseConnection";
+import CreateCoupleConnection from "./components/Onboarding/CreateCoupleStep";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
@@ -125,8 +127,8 @@ function App() {
         <Route path="/createConnection" element={<CreateCouple />}>
           <Route index element={<WelcomPage />} />
           <Route path="account" element={<div>Account</div>} />
-          <Route path="choose-connection" element={<div>Choose Connection</div>} />
-          <Route path="create" element={<div>create</div>} />
+          <Route path="choose-connection" element={<ChooseConnection />} />
+          <Route path="create" element={<CreateCoupleConnection />} />
           <Route path="partner-code" element={<div>partner-Code</div>} />
         </Route>
         <Route path="/reset-password" element={<ResetPassword />} />

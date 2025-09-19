@@ -1,12 +1,14 @@
 import { use } from "react";
 import { useEffect, useState } from "react"
+import { useNavigate } from "react-router-dom";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 const WelcomPage = () => {
 
    const [userinfo, setUser] = useState([]);;
-   const [error, setError] = useState('')
+   const [error, setError] = useState('');
+   const navigate = useNavigate();
   
    useEffect(()=>{
       const fetchUser = async ()=>{
@@ -37,8 +39,14 @@ const WelcomPage = () => {
       fetchUser();
    }, []);
 
+  const send = () => {
+    navigate("/createConnection/choose-connection"); // use full path with leading slash
+  };
+
+   
+
    return (
-      <div className="w-full py-5 bg-pink-50 rounded-md">
+      <div className="w-full py-5 px-2 bg-white rounded-md">
          <div className=" w-fit mx-auto px-2 py-1 my-3 rounded-full outline-3 outline-offset-2 outline-pink-400 text-3xl text-pink-700 font-semibold">
             <i className="bi bi-heart"></i>
          </div>
@@ -69,6 +77,24 @@ const WelcomPage = () => {
                </div>
             </div>
          </div>
+         <div className="pt-4">
+            <div className="px-3">
+               <div className="flex flex-col space-y-2">
+                  <div className="flex gap-2 justify-center items-center">
+                     <i className="bi bi-people"></i>
+                     <p className="text-sm text-neutral-500">
+                        ready to connect with your partner?
+                     </p>
+                  </div>
+
+                  {/* button */}
+                  <button onClick={send} className="cursor-pointer bg-black px-3 py-2 w-full text-white font-mono text-lg rounded-md ring-2 ring-offset-1 ring-neutral-200">
+                     Lets Get Started
+                  </button>
+               </div>
+            </div>
+         </div>
+
 
       </div>
    )
