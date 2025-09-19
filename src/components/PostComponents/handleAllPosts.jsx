@@ -58,6 +58,7 @@ export default function XAllPosts() {
           comments:      p.comments || []
         }));
         setPosts(norm);
+        // console.log(norm);
       } catch (err) {
         console.error("Init failed:", err);
         setError(err.response?.data?.error || err.message);
