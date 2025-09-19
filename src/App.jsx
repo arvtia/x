@@ -24,6 +24,7 @@ import WelcomPage from "./components/Onboarding/WelcomPage";
 import ChooseConnection from "./components/Onboarding/ChooseConnection";
 import CreateCoupleConnection from "./components/Onboarding/CreateCoupleStep";
 import WaitForPartner from "./components/Onboarding/WaitforPartner";
+import BackButton from "./components/Onboarding/BackButton";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
@@ -126,10 +127,10 @@ function App() {
 
         {/* Unauthenticated users who must first create a connection */}
         <Route path="/createConnection" element={<CreateCouple />}>
-          <Route index element={<WelcomPage />} />
-          <Route path="choose-connection" element={<ChooseConnection />} />
-          <Route path="create" element={<CreateCoupleConnection />} />
-          <Route path="partner-code" element={<WaitForPartner />} />
+            <Route index element={<WelcomPage />} />
+            <Route path="choose-connection" element={<ChooseConnection />} />
+            <Route path="create" element={<CreateCoupleConnection />} />
+            <Route path="partner-code" element={<WaitForPartner />} />
         </Route>
         <Route path="/reset-password" element={<ResetPassword />} />
 
