@@ -19,6 +19,8 @@ import MainMemmories from "./components/memmoriesComponent/MainMemmories";
 import MainCreatePost from "./components/PostComponents/MainCreatePost";
 import ProfileDash from "./components/ProfileDashboardComponenets/ProfileDash";
 import ResetPassword from "./components/ResetForgetPassword/ResetPassword";
+import CreateCouple from "./components/Slider/CreateCouple";
+import WelcomPage from "./components/Onboarding/WelcomPage";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
@@ -90,14 +92,7 @@ function ProtectedRoute() {
 // ─────────────────────────────────────────────────────────────────────────────
 // 2) CreateConnection placeholder
 // ─────────────────────────────────────────────────────────────────────────────
-function CreateConnection() {
-  return (
-    <div className="h-screen flex items-center justify-center text-gray-700">
-      <h1 className="text-2xl">Create Your Connection</h1>
-      <p className="mt-2 text-gray-500">[CreateConnection page goes here]</p>
-    </div>
-  );
-}
+// created a componenet -> cereate connection  <CreateCouple />
 
 // ─────────────────────────────────────────────────────────────────────────────
 // 3) App: Defines all routes with guards
@@ -127,7 +122,13 @@ function App() {
         </Route>
 
         {/* Unauthenticated users who must first create a connection */}
-        <Route path="/createConnection" element={<CreateConnection />} />
+        <Route path="/createConnection" element={<CreateCouple />}>
+          <Route index element={<WelcomPage />} />
+          <Route path="account" element={<div>Account</div>} />
+          <Route path="choose-connection" element={<div>Choose Connection</div>} />
+          <Route path="create" element={<div>create</div>} />
+          <Route path="partner-code" element={<div>partner-Code</div>} />
+        </Route>
         <Route path="/reset-password" element={<ResetPassword />} />
 
         {/* Catch-all: redirect unknown routes to root */}
