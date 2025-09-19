@@ -18,6 +18,7 @@ import DhomeAll from "./components/HomePageComponent/DhomeAll";
 import MainMemmories from "./components/memmoriesComponent/MainMemmories";
 import MainCreatePost from "./components/PostComponents/MainCreatePost";
 import ProfileDash from "./components/ProfileDashboardComponenets/ProfileDash";
+import ResetPassword from "./components/ResetForgetPassword/ResetPassword";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
@@ -127,6 +128,7 @@ function App() {
 
         {/* Unauthenticated users who must first create a connection */}
         <Route path="/createConnection" element={<CreateConnection />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
 
         {/* Catch-all: redirect unknown routes to root */}
         <Route path="*" element={<Navigate to="/" replace />} />
