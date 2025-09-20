@@ -26,6 +26,7 @@ import CreateCoupleConnection from "./components/Onboarding/CreateCoupleStep";
 import WaitForPartner from "./components/Onboarding/WaitforPartner";
 // import BackButton from "./components/Onboarding/BackButton";
 import NoPagefound from "./components/NoPagefound";
+import InstallButton from "./InstallButton";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 

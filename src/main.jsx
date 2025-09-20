@@ -5,6 +5,8 @@ import App from "./App.jsx";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import { registerSW } from "./swRegistration.js";
 
+
+
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <App />
