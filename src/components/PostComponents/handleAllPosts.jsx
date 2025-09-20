@@ -108,7 +108,7 @@ export default function XAllPosts() {
     }
   };
 
-   const addComment = async (postId) => {
+  const addComment = async (postId) => {
   const content = commentInputs[postId]?.trim();
   if (!content) return;
 
@@ -184,7 +184,7 @@ export default function XAllPosts() {
     return <div className="p-6 text-center text-gray-500">No posts to show.</div>;
 
   return (
-    <div className="max-w-md mx-auto bg-white rounded-lg ">
+    <div className="max-w-md mx-auto bg-white rounded-md md:rounded-md ">
       
 
       {posts.map((post) => (
@@ -272,7 +272,7 @@ export default function XAllPosts() {
                )}
 
                {/* Action Bar */}
-               <div className="flex items-center space-x-6 mt-4 text-gray-600 text-lg">
+               <div className="flex items-center space-x-6 mt-4 text-gray-600 text-md">
                   {/* Love */}
                   <button
                      onClick={() => lovePost(post._id)}
@@ -299,20 +299,23 @@ export default function XAllPosts() {
                      }
                      className="flex items-center space-x-1 hover:text-blue-500"
                   >
-                     <i className="bi bi-chat-left-text" />
+                     <i className="bi bi-chat-left" />
                      {post.commentsCount > 0 && (
                      <span className="text-sm">{post.commentsCount}</span>
                      )}
                   </button>
 
-                  {/* Share */}
-                  <button
+                  {/* share button i am hiding it for now */}
+                  
+                  {/* <button
                      onClick={() => sharePost(post._id)}
                      className="flex items-center space-x-1 hover:text-green-500"
                   >
                      <i className="bi bi-share" />
-                     <span className="text-sm">{post.shareCount}</span>
-                  </button>
+                     { post.shareCount > 0 && (
+                      <span className="text-sm">{post.shareCount}</span>
+                     )}
+                  </button> */}
                </div>
 
                {/* Comments Thread */}
