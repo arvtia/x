@@ -135,6 +135,7 @@ function App() {
             <Route path="partner-code" element={<WaitForPartner />} />
         </Route>
         <Route path="/reset-password" element={<ResetPassword />} />
+        <Route path="/forget-password" element={<div>Forget Password</div>} />
 
         {/* Catch-all: redirect unknown routes to root */}
         <Route path="*" element={<NoPagefound />} />
