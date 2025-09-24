@@ -27,6 +27,7 @@ const PasswordResetForm = () => {
       }
    };
 
+
    return (
       <div className="w-full z-50 md:py-10 px-2 py-2 pt-13 md:pt-18 fixed top-0 left-0 bg-black h-full">
          <div className="flex flex-col place-content-center-safe bg-fixed max-w-7xl mx-auto h-[80vh] bg-[url('https://i.pinimg.com/1200x/4d/17/ce/4d17ce529909f8d0c209c16bb5032774.jpg')] bg-no-repeat bg-fixed bg-center">
