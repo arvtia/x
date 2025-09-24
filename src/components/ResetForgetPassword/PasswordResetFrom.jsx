@@ -44,8 +44,9 @@ const PasswordResetForm = () => {
                               type="password"
                               name="password"
                               id="password"
-                              className="relative py-3 px-2 bg-neutral-100 w-full outline-indigo-400 rounded-md focus:outline-2 mt-1 focus:outline-dashed focus:outline-offset-1 shadow-[01px_2px_#ddd]"
+                              className="relative py-3 px-2 text-neutral-600 text-md bg-neutral-100 w-full outline-indigo-400 rounded-md focus:outline-2 mt-1 focus:outline-dashed focus:outline-offset-1 shadow-[01px_2px_#ddd]"
                               required
+                              placeholder="type in your password"
                            />
                         </div>
                         <div className="w-full p-4 relative">
