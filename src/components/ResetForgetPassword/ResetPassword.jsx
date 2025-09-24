@@ -12,7 +12,7 @@ const ResetPassword = () => {
       setError('');
 
       try {
-         const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/auth/send-reset-link`, { email });
+         const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/auth/restlink`, { email });
          setMessage(response.data.message);
       } catch (err) {
          setError(err.response?.data?.message || "Something went wrong");

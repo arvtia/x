@@ -15,7 +15,7 @@ const PasswordResetFrom = () => {
       e.preventDefault();  
       try 
       {
-         const response = await axios.post ( `${API_BASE}/api/auth/reset-password/${token}`,
+         const response = await axios.post ( `${API_BASE}/api/auth/reset-password/:${token}`,
             {password},
             {header: { "Content-Type": "application/json" }}
          )
