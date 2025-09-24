@@ -60,6 +60,9 @@ const LoginForm = () => {
                      <div className="text-sm text-center">
                         Don't have an account? <Link to={'/signup'} className="text-indigo-500 hover:underline">Sign Up</Link>
                      </div>
+                     <div className="text-sm text-center">
+                        <Link to={'/forgot-password'} className="text-indigo-500 hover:underline">Forgot Password?</Link>
+                     </div>
                   </div>
                         
                </form>

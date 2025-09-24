@@ -27,6 +27,7 @@ import WaitForPartner from "./components/Onboarding/WaitforPartner";
 // import BackButton from "./components/Onboarding/BackButton";
 import NoPagefound from "./components/NoPagefound";
 import InstallButton from "./InstallButton";
+import PasswordResetFrom from "./components/ResetForgetPassword/PasswordResetFrom";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
@@ -134,8 +135,8 @@ function App() {
             <Route path="create" element={<CreateCoupleConnection />} />
             <Route path="partner-code" element={<WaitForPartner />} />
         </Route>
-        <Route path="/reset-password" element={<ResetPassword />} />
-        <Route path="/forget-password" element={<div>Forget Password</div>} />
+        <Route path="/forgot-password" element={<ResetPassword />} />
+        <Route path="/reset-password/:token" element={<PasswordResetFrom/>} />
 
         {/* Catch-all: redirect unknown routes to root */}
         <Route path="*" element={<NoPagefound />} />
