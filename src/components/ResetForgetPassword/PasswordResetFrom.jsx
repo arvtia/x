@@ -1,11 +1,12 @@
 import { useState } from "react";
-import { useParams } from 'react-router-dom';
+
 import axios from "axios";
+import { useParams } from "react-router-dom";
 
 const API_BASE = import.meta.env.VITE_BASE_URL;
 
 const PasswordResetForm = () => {
-   const { token } = useParams();
+   const { token } = useParams;
    const [password, setPassword] = useState('');
    const [error, setError] = useState('');
    const [message, setMessage] = useState('');
