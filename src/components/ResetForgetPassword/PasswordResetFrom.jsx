@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const API_BASE = import.meta.env.VITE_BASE_URL;
 
@@ -9,6 +9,7 @@ const API_BASE = import.meta.env.VITE_BASE_URL;
    const [password, setPassword] = useState('');
    const [error, setError] = useState('');
    const [message, setMessage] = useState('');
+   const navigate = useNavigate();
 
    // Log token when component mounts
    useEffect(() => {
@@ -33,6 +34,8 @@ const API_BASE = import.meta.env.VITE_BASE_URL;
          );
          setMessage(response.data.message);
          console.log(token);
+         navigate('/login');
+         
       } catch (err) {
          setError(err.response?.data?.message || "Something went wrong");
       }
