@@ -44,7 +44,7 @@ const ResetPassword = () => {
                            required
                         />
 
-                        <button type="submit" className="px-2 text-white font-mono py-4 rounded-xl text-lg text-shadow-sm bg-neutral-900 border border-t border-e-neutral-50 shadow-xl ring-neutral-400 ring-1">
+                        <button type="submit" className="px-2 text-white font-mono py-4 rounded-xl text-lg text-shadow-sm bg-neutral-900 border border-t border-e-neutral-50 shadow-xl ring-neutral-400 ring-1 cursor-pointer">
                            Send Reset Link
                         </button>
 
