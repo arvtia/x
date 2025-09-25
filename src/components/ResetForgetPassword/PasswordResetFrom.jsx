@@ -6,15 +6,17 @@ import { useParams } from "react-router-dom";
 const API_BASE = import.meta.env.VITE_BASE_URL;
 
 const PasswordResetForm = () => {
-   const { token } = useParams;
+   const { token } = useParams();
    const [password, setPassword] = useState('');
    const [error, setError] = useState('');
    const [message, setMessage] = useState('');
+
 
    const handleResetPassword = async (e) => {
       e.preventDefault();
       setError('');
       setMessage('');
+      console.log(token);
 
       try {
          const response = await axios.post(
