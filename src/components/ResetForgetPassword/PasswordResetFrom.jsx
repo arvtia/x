@@ -1,16 +1,23 @@
-import { useState } from "react";
-
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 
 const API_BASE = import.meta.env.VITE_BASE_URL;
 
-const PasswordResetForm = () => {
+   const PasswordResetForm = () => {
    const { token } = useParams();
    const [password, setPassword] = useState('');
    const [error, setError] = useState('');
    const [message, setMessage] = useState('');
 
+   // Log token when component mounts
+   useEffect(() => {
+      if (token) {
+         console.log("Reset token from URL:", token);
+      } else {
+         console.warn("No reset token found in URL");
+      }
+   }, [token]);
 
    const handleResetPassword = async (e) => {
       e.preventDefault();
