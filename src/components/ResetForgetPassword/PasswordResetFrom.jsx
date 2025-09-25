@@ -25,6 +25,7 @@ const PasswordResetForm = () => {
             { headers: { "Content-Type": "application/json" } }
          );
          setMessage(response.data.message);
+         console.log(token);
       } catch (err) {
          setError(err.response?.data?.message || "Something went wrong");
       }
