@@ -7,6 +7,16 @@ export default function ProfileDash() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
+
+  const logOut =() =>{
+    
+    localStorage.clear();
+    sessionStorage.clear();
+    window.location.reload();
+  
+  }
+
+
   useEffect(() => {
     const fetchProfile = async () => {
       setLoading(true);
@@ -57,7 +67,7 @@ export default function ProfileDash() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 to-purple-50 p-6">
-      <div className="max-w-lg mx-auto bg-white rounded-xl shadow-lg overflow-hidden">
+      <div className="max-w-lg mx-auto bg-white rounded-xl shadow-lg overflow-hidden relative">
         {/* Header */}
         <div className="bg-gradient-to-r from-indigo-600 to-purple-600 p-6 flex items-center space-x-4">
           <div className="h-20 w-20 bg-white rounded-full flex items-center justify-center text-3xl font-bold text-indigo-600">
@@ -91,6 +101,7 @@ export default function ProfileDash() {
             Edit Profile
           </button>
         </div>
+        <button className="absolute top-5 right-4 px-3 py-2 bg-red-500 rounded-md shadow-md " onClick={logOut}>Log out</button>
       </div>
     </div>
   );
