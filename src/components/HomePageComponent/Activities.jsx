@@ -8,10 +8,10 @@ const BASE_URL = import.meta.env.VITE_BASE_URL;
 // Map a count to a Tailwind color class (GitHub-like)
 function getLevelClass(count) {
   if (count === 0) return 'bg-gray-200 dark:bg-neutral-800';
-  if (count <= 3) return 'bg-green-200';
-  if (count <= 6) return 'bg-green-400';
-  if (count <= 9) return 'bg-green-600';
-  return 'bg-green-800';
+  if (count <= 3) return 'bg-pink-200';
+  if (count <= 6) return 'bg-pink-400';
+  if (count <= 9) return 'bg-pink-600';
+  return 'bg-pink-800';
 }
 
 // Build a YYYY-MM-DD string
@@ -141,10 +141,10 @@ export default function ActivityGraph() {
       <div className="ml-8 flex items-center gap-2 text-xs text-neutral-500">
         <span>Less</span>
         <div className="h-3 w-3 rounded-sm bg-gray-200 dark:bg-neutral-800" />
-        <div className="h-3 w-3 rounded-sm bg-green-200" />
-        <div className="h-3 w-3 rounded-sm bg-green-400" />
-        <div className="h-3 w-3 rounded-sm bg-green-600" />
-        <div className="h-3 w-3 rounded-sm bg-green-800" />
+        <div className="h-3 w-3 rounded-sm bg-red-200" />
+        <div className="h-3 w-3 rounded-sm bg-pink-400" />
+        <div className="h-3 w-3 rounded-sm bg-pink-600" />
+        <div className="h-3 w-3 rounded-sm bg-pink-800" />
         <span>More</span>
       </div>
     </div>
